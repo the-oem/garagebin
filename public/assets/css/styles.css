@@ -62,3 +62,19 @@ body {
   padding: 5px 10px;
   margin-left: 20px;
 }
+
+.item-container {
+  display: grid;
+  grid-template-columns: 300px 300px 300px;
+  grid-gap: 15px;
+  justify-content: center;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(92, 164, 169, 1);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
