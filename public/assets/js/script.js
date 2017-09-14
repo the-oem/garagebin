@@ -58,4 +58,10 @@ const apiGetItems = () => fetch('/api/v1/items')
 
 $('#asc').on('click', sortPageItems)
 $('#desc').on('click', sortPageItems)
-$('.garage-door').click(() => $('.garage-door').addClass('slideup'))
+$('.garage-door').click(() => {
+  if ($('.garage-door').hasClass('slideup')) {
+    $('.garage-door').removeClass('slideup').addClass('slidedown')
+  } else {
+    $('.garage-door').removeClass('slidedown').addClass('slideup')
+  }
+})
