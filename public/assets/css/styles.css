@@ -38,20 +38,41 @@ body {
   box-sizing: inherit;
 }
 
+.garage-door {
+  position: absolute;
+  z-index: 99;
+  width: 100%;
+  height: 100vh;
+  cursor: pointer;
+  background-color: red;
+  background-image: url('/assets/img/garage_door.jpg');
+  background-position: top;
+  background-size: cover;
+}
+
+.slideup {
+  overflow-y: hidden;
+  height: 0vh;
+  -webkit-transition: height 3s ease-in-out;
+  -moz-transition: height 3s ease-in-out;
+  -o-transition: height 3s ease-in-out;
+  transition: height 3s ease-in-out;
+}
+
 .nav {
   display: flex;
+  align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
   padding: 10px;
   background-color: rgba(237, 106, 90, 1);
 }
 
 .user-interactions {
   display: flex;
+  align-items: center;
   flex-direction: row;
   justify-content: space-around;
-  align-items: center;
 }
 
 .user-interactions>div {
@@ -59,28 +80,28 @@ body {
 }
 
 .sort-btn {
-  padding: 5px 10px;
   margin-left: 20px;
+  padding: 5px 10px;
   cursor: pointer;
 }
 
 .item-container {
   display: grid;
+  justify-content: center;
   grid-template-columns: 300px 300px 300px;
   grid-gap: 15px;
-  justify-content: center;
 }
 
 .item {
   display: flex;
   flex-direction: column;
+  margin: 10px;
+  padding: 10px;
   border: 1px solid rgba(92, 164, 169, 1);
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
 }
 
 .count {
-  font-style: italic;
   font-weight: 400;
+  font-style: italic;
 }
