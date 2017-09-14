@@ -1,4 +1,5 @@
 let itemArray = []
+let currentSort
 
 const pageSetup = () => {
   apiGetItems()
@@ -14,17 +15,16 @@ const updateItemsArray = (data) => {
   itemArray = data
 }
 
+const addItem = () => {
+  apiAddItem($('.input-name').val(), $('.input-reason').val(), $('.input-cleanliness').val())
+}
+
 const sortItems = (items, dir = 'asc') => {
   if (dir === 'asc') {
     return items.sort((a, b) => ((b.name.toUpperCase() > a.name.toUpperCase()) ? 1 : ((a.name.toUpperCase() > b.name.toUpperCase()) ? -1 : 0)))
   } else {
     return items.sort((a, b) => ((a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : ((b.name.toUpperCase() > a.name.toUpperCase()) ? -1 : 0)))
   }
-}
-
-const sortPageItems = (event) => {
-  itemArray = sortItems(itemArray, $(event.target).attr('id'))
-  loadItemsInDom(itemArray)
 }
 
 const loadItemsInDom = (items) => {
@@ -79,6 +79,24 @@ const apiGetItems = () => fetch('/api/v1/items')
   .then(response => response.json())
   .catch(error => console.log(error))
 
+const apiAddItem = (name, reason, cleanliness) => {
+  fetch('/api/v1/items', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name,
+      staleness_reason: reason,
+      cleanliness
+    })
+  })
+    .then(response => response.json())
+    .then(response => itemArray.push(response.data))
+    .then(response => loadItemsInDom(sortItems(itemArray, currentSort)))
+    .catch(error => console.log(error))
+}
+
 const apiUpdateCondition = (id, cleanliness) => {
   fetch(`/api/v1/items/${id}`, {
     method: 'PUT',
@@ -97,17 +115,24 @@ const apiUpdateCondition = (id, cleanliness) => {
 const sortPage = () => {
   if ($('#sortBtn').text() === 'Sort Asc') {
     $('#sortBtn').text('Sort Desc')
+    currentSort = 'asc'
     loadItemsInDom(sortItems(itemArray, 'asc'))
   } else {
     $('#sortBtn').text('Sort Asc')
+    currentSort = 'desc'
     loadItemsInDom(sortItems(itemArray, 'desc'))
   }
 }
 const toggleItemVisibility = (event) => {
-  console.log($(event.target));
+  if($(event.target).parent().siblings('div').hasClass('hidden')){
+    $(event.target).parent().siblings('div').removeClass('hidden')
+  } else {
+    $(event.target).parent().siblings('div').addClass('hidden')
+  }
 }
 
-$('#sortBtn').on('click', sortPage)
+$('.add-btn').on('click', addItem)
+$('.sort-btn').on('click', sortPage)
 $('.item-container').on('change', '#itemCleanliness', updateCleanliness)
   .on('click', '.item-name', toggleItemVisibility)
 $('.garage-btn').click(() => {
