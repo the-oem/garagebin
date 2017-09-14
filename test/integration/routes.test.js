@@ -140,4 +140,27 @@ describe('Testing GarageBin API Routes', () => {
             })
     })
   })
+
+  describe('PUT /api/items/:id', () => {
+    it('should respond with a 200 and the single item that was updated', (done) => {
+      chai.request(server)
+        .put('/api/v1/items/1')
+        .send({
+          name: 'A tooth',
+          cleanliness: 'Rancid'
+        })
+        .end((err, res) => {
+          should.not.exist(err)
+          res.status.should.equal(200)
+          res.type.should.equal('application/json')
+          res.body.data[0].should.include.keys(
+            'id', 'name', 'staleness_reason', 'cleanliness', 'created_at', 'updated_at')
+          res.body.data[0].id.should.equal(1)
+          res.body.data[0].name.should.equal('A tooth')
+          res.body.data[0].staleness_reason.should.equal('My kids moved away and now I have their old, shitty bike.')
+          res.body.data[0].cleanliness.should.equal('Rancid')
+          done()
+        })
+    })
+  })
 })
