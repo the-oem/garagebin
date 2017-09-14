@@ -3,7 +3,9 @@ This project is our final assessment. The original project spec can be found [he
 
 ## Motivation
 
-## Build status
+## Badges status
+
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Tech/framework used
 
