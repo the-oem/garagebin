@@ -9,9 +9,9 @@
 </head>
 
 <body>
-  <div class="garage-door">
-    <button class="garage-btn"></button>
-  </div>
+  <!-- <div class="garage-door">
+<button class="garage-btn"></button>
+</div> -->
   <main class="main">
     <nav class="nav">
       <div class="title">
@@ -27,8 +27,13 @@
       </div>
     </nav>
     <div class="add-form">
-      <button class="add-btn">Add New Item</button>
-
+      <input type="text" placeholder="Item Name" value="" class="input-name" />
+      <input type="text" placeholder="Reason You Have This?" value="" class="input-reason" /> <label>Cleanliness: <select name="cleanliness" class="input-cleanliness">
+        <option value="Sparkling">Sparkling</option>
+        <option value="Dusty">Dusty</option>
+        <option value="Rancid">Rancid</option>
+      </select></label>
+      <button class="add-btn">Add Item</button>
     </div>
     <div class="item-container">
 
