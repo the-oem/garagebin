@@ -36,13 +36,12 @@ const loadItemsInDom = (items) => {
 }
 
 const addItemInDom = (item) => {
-  console.log(item.cleanliness)
   $('.item-container').prepend(`
     <div class="item" id="${item.id}">
       <div class="item-name"><strong>${item.name}</strong></div>
       <div class="item-explanation hidden"><strong>Why is this here?</strong> ${item.staleness_reason}</div>
-      <div class="item-cleanliness hidden"><strong>Condition:</strong>
-        <select id="itemCondition">
+      <div class="item-cleanliness hidden"><strong>Cleanliness:</strong>
+        <select class="item-cleanliness" id="itemCleanliness">
           <option value="Sparkling" ${checkSelected(item.cleanliness, 'Sparkling')}>Sparkling</option>
           <option value="Dusty" ${checkSelected(item.cleanliness, 'Dusty')}>Dusty</option>
           <option value="Rancid" ${checkSelected(item.cleanliness, 'Rancid')}>Rancid</option>
@@ -51,13 +50,22 @@ const addItemInDom = (item) => {
   `)
 }
 
-const updateCondition = (event) => {
+const updateCleanliness = (event) => {
   const itemId = $(event.target).closest('.item').attr('id')
   apiUpdateCondition(itemId, $(event.target)[0].value)
+  updateItemInArray(itemId, 'cleanliness', $(event.target)[0].value)
+  updateItemCounts(itemArray)
 }
 
 const checkSelected = (cleanliness, option) => {
   return cleanliness === option ? 'selected' : ''
+}
+
+const updateItemInArray = (id, key, value) => {
+  itemArray = itemArray.map(item => {
+    if (item.id === parseInt(id, 10)) item[key] = value
+    return item
+  })
 }
 
 const updateItemCounts = items => {
@@ -88,7 +96,7 @@ const apiUpdateCondition = (id, cleanliness) => {
 
 $('#asc').on('click', sortPageItems)
 $('#desc').on('click', sortPageItems)
-$('.item-container').on('change', '#itemCondition', updateCondition)
+$('.item-container').on('change', '#itemCleanliness', updateCleanliness)
 $('.garage-door').click(() => {
   if ($('.garage-door').hasClass('slideup')) {
     $('.garage-door').removeClass('slideup').addClass('slidedown')
