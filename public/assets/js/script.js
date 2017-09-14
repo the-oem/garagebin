@@ -3,7 +3,7 @@ let itemArray = []
 const pageSetup = () => {
   apiGetItems()
       .then(response => updateItemsArray(response.data))
-      .then(response => loadItems(itemArray))
+      .then(response => loadItemsInDom(sortItems(itemArray)))
       .catch(error => console.log(error))
 }
 
@@ -14,12 +14,19 @@ const updateItemsArray = (data) => {
   itemArray = data
 }
 
-const loadItems = (items) => {
-  console.log(items)
-  loadItemsInDom(items)
+const sortItems = (items, dir = 'asc') => {
+  if (dir === 'asc') {
+    return items.sort((a, b) => ((b.name.toUpperCase() > a.name.toUpperCase()) ? 1 : ((a.name.toUpperCase() > b.name.toUpperCase()) ? -1 : 0)))
+
+  } else {
+    return items.sort((a, b) => ((a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : ((b.name.toUpperCase() > a.name.toUpperCase()) ? -1 : 0)))
+  }
 }
 
-const sortItems = items => items.sort((a, b) => ((a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : ((b.name.toUpperCase() > a.name.toUpperCase()) ? -1 : 0)))
+const sortPageItems = (event) => {
+  itemArray = sortItems(itemArray, $(event.target).attr('id'))
+  loadItemsInDom(itemArray)
+}
 
 const loadItemsInDom = (items) => {
   $('.item-container').empty()
@@ -41,3 +48,6 @@ const addItemInDom = (item) => {
 const apiGetItems = () => fetch('/api/v1/items')
   .then(response => response.json())
   .catch(error => console.log(error))
+
+$('#asc').on('click', sortPageItems)
+$('#desc').on('click', sortPageItems)
