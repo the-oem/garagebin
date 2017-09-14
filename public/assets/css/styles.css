@@ -50,13 +50,18 @@ body {
   background-size: cover;
 }
 
-.slideup {
+.slideup,
+.slidedown {
   overflow-y: hidden;
-  height: 0vh;
+  height: 13vh;
   -webkit-transition: height 3s ease-in-out;
   -moz-transition: height 3s ease-in-out;
   -o-transition: height 3s ease-in-out;
   transition: height 3s ease-in-out;
+}
+
+.slidedown {
+  height: 100vh;
 }
 
 .nav {
@@ -64,6 +69,10 @@ body {
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
+  position: absolute;
+  top: 13vh;
+  border-top: 2px solid rgba(230, 235, 224, 1);
+  width: 100vw;
   padding: 10px;
   background-color: rgba(237, 106, 90, 1);
 }
@@ -86,6 +95,8 @@ body {
 }
 
 .item-container {
+  position: relative;
+  top: 24vh;
   display: grid;
   justify-content: center;
   grid-template-columns: 300px 300px 300px;
