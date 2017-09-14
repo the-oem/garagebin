@@ -46,7 +46,7 @@ describe('Testing GarageBin API Routes', () => {
         res.type.should.equal('application/json')
         res.body.data.length.should.equal(3)
         res.body.data[0].should.include.keys(
-          'id', 'name', 'staleness_reason', 'cleanliness')
+          'id', 'name', 'staleness_reason', 'cleanliness', 'created_at', 'updated_at')
         done()
       })
     })
@@ -75,6 +75,42 @@ describe('Testing GarageBin API Routes', () => {
         res.body.error.routine.should.equal('errorMissingColumn')
         done()
       })
+    })
+  })
+
+  describe('POST /api/v1/items', () => {
+    it('should respond with the newly added item', (done) => {
+      chai.request(server)
+            .post('/api/v1/items')
+            .send({
+              name: 'An old shoe',
+              staleness_reason: 'I lost this shoe years ago. Now I know where it has been!',
+              cleanliness: 'Rancid'
+            })
+            .end((err, res) => {
+              should.not.exist(err)
+              res.status.should.equal(201)
+              res.type.should.equal('application/json')
+              res.body.data.should.include.keys(
+                'id', 'name', 'staleness_reason', 'cleanliness', 'created_at', 'updated_at')
+              done()
+            })
+    })
+
+    it('should respond with a 422 error if required parameters are missing.', (done) => {
+      chai.request(server)
+            .post('/api/v1/items')
+            .send({
+              staleness_reason: 'I lost this shoe years ago. Now I know where it has been!',
+              cleanliness: 'Rancid'
+            })
+            .end((err, res) => {
+              should.exist(err)
+              res.status.should.equal(422)
+              res.type.should.equal('application/json')
+              res.body.error.should.equal('Missing required parameter of (name).')
+              done()
+            })
     })
   })
 })

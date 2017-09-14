@@ -14,10 +14,7 @@ const getItem = (req, res) => {
   DB('items').where('id', parseInt(req.params.id, 10)).select()
     .then(item => (item.length ? res.status(200).json({
       data: item
-    }) : res.status(404).json({
-      data: {
-        error: `Item with id (${parseInt(req.params.id, 10)}) was not found.`
-      }
+    }) : res.status(404).json({error: `Item with id (${parseInt(req.params.id, 10)}) was not found.`
     })))
     .catch(error => res.status(500).json({ error }))
 }
@@ -26,10 +23,7 @@ const addItem = (req, res) => {
   const item = req.body
   for (const requiredParameter of ['name', 'staleness_reason', 'cleanliness']) {
     if (!item[requiredParameter]) {
-      return res.status(422).json({
-        data: {
-          error: `Missing required parameter of (${requiredParameter}).`
-        }
+      return res.status(422).json({error: `Missing required parameter of (${requiredParameter}).`
       })
     }
   }
