@@ -1,29 +1,23 @@
 /* Color Palette Variables */
 
 
-/*$background: #E5F3F2;
-$primary-accent: #00A79D;
-$secondary-accent: #045E55;
-$primary-text: #6D6E71;
-$secondary-text: #939598;
-$btn-text: #FFF;
-$divider: #D1D3D4;*/
-
-
-/* RGB */
-
-
 /*
 Nav: rgba(237, 106, 90, 1);
-Background: rgba(244, 241, 187, 1);
+Accent: rgba(244, 241, 187, 1);
 Item Primary: rgba(155, 193, 188, 1);
 Item Accent: rgba(92, 164, 169, 1);
-Main Accent: rgba(230, 235, 224, 1);
+Background: rgba(230, 235, 224, 1);
 */
+
+html,
+button,
+input,
+select {
+  font-family: 'Raleway', sans-serif;
+}
 
 html {
   box-sizing: border-box;
-  font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -43,7 +37,6 @@ body {
   z-index: 99;
   width: 100%;
   height: 100vh;
-  cursor: pointer;
   background-color: red;
   background-image: url('/assets/img/garage_door.jpg');
   background-position: top;
@@ -69,15 +62,15 @@ body {
 }
 
 .nav {
+  position: absolute;
+  top: 13vh;
   display: flex;
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  position: absolute;
-  top: 13vh;
-  border-top: 2px solid rgba(230, 235, 224, 1);
   width: 100vw;
   padding: 10px;
+  border-top: 2px solid rgba(230, 235, 224, 1);
   background-color: rgba(237, 106, 90, 1);
 }
 
@@ -122,9 +115,41 @@ body {
 }
 
 .item-cleanliness {
-  outline: none;
-  cursor: pointer;
   height: 25px;
-  /*width: 100px;*/
+  cursor: pointer;
+  outline: none;
   font-family: inherit;
+}
+
+.sort-btn {
+  width: 100px;
+  border: 1px solid rgba(155, 193, 188, 1);
+  border-radius: 50px;
+  outline: none;
+  background-color: rgba(244, 241, 187, 1);
+}
+
+.garage-btn {
+  position: relative;
+  top: 10px;
+  left: 46%;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  border-radius: 50%;
+  outline: none;
+  background-image: url('/assets/img/chevron-up.svg');
+  background-position: center;
+  background-size: cover;
+  font-weight: bold;
+}
+
+.garage-btn-close,
+.garage-btn-open {
+  transition: all 3s ease-in-out;
+  background-image: url('/assets/img/chevron-down.svg');
+}
+
+.garage-btn-open {
+  background-image: url('/assets/img/chevron-up.svg');
 }
