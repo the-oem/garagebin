@@ -54,13 +54,14 @@ body {
   align-items: center;
 }
 
-.count {
+.user-interactions>div {
   padding: 5px;
 }
 
-.sort {
+.sort-btn {
   padding: 5px 10px;
   margin-left: 20px;
+  cursor: pointer;
 }
 
 .item-container {
@@ -77,4 +78,9 @@ body {
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
+}
+
+.count {
+  font-style: italic;
+  font-weight: 400;
 }
