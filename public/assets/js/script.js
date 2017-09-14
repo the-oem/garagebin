@@ -38,11 +38,34 @@ const loadItemsInDom = (items) => {
 const addItemInDom = (item) => {
   $('.item-container').prepend(`
     <div class="item" id="${item.id}">
-      <div class="item-name"><strong>Name:</strong> ${item.name}</div>
-      <div class="item-explanation"><strong>Why is this here?</strong> ${item.staleness_reason}</div>
-      <div class="item-cleanliness"><strong>Condition:</strong> ${item.cleanliness}</div>
-    </div>
+      <div class="item-name"><strong>${item.name}</strong></div>
+      <div class="item-explanation hidden"><strong>Why is this here?</strong> ${item.staleness_reason}</div>
+      <div class="item-cleanliness hidden"><strong>Cleanliness:</strong>
+        <select class="item-cleanliness" id="itemCleanliness">
+          <option value="Sparkling" ${checkSelected(item.cleanliness, 'Sparkling')}>Sparkling</option>
+          <option value="Dusty" ${checkSelected(item.cleanliness, 'Dusty')}>Dusty</option>
+          <option value="Rancid" ${checkSelected(item.cleanliness, 'Rancid')}>Rancid</option>
+        </select>
+      </div>
   `)
+}
+
+const updateCleanliness = (event) => {
+  const itemId = $(event.target).closest('.item').attr('id')
+  apiUpdateCondition(itemId, $(event.target)[0].value)
+  updateItemInArray(itemId, 'cleanliness', $(event.target)[0].value)
+  updateItemCounts(itemArray)
+}
+
+const checkSelected = (cleanliness, option) => {
+  return cleanliness === option ? 'selected' : ''
+}
+
+const updateItemInArray = (id, key, value) => {
+  itemArray = itemArray.map(item => {
+    if (item.id === parseInt(id, 10)) item[key] = value
+    return item
+  })
 }
 
 const updateItemCounts = items => {
@@ -56,8 +79,24 @@ const apiGetItems = () => fetch('/api/v1/items')
   .then(response => response.json())
   .catch(error => console.log(error))
 
+const apiUpdateCondition = (id, cleanliness) => {
+  fetch(`/api/v1/items/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ cleanliness })
+  })
+    .then((response) => {
+      if (!response.ok) throw Error(response.statusText)
+      return response.json()
+    })
+    .catch(error => console.log(error))
+}
+
 $('#asc').on('click', sortPageItems)
 $('#desc').on('click', sortPageItems)
+$('.item-container').on('change', '#itemCleanliness', updateCleanliness)
 $('.garage-door').click(() => {
   if ($('.garage-door').hasClass('slideup')) {
     $('.garage-door').removeClass('slideup').addClass('slidedown')
