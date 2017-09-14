@@ -103,9 +103,13 @@ const sortPage = () => {
     loadItemsInDom(sortItems(itemArray, 'desc'))
   }
 }
+const toggleItemVisibility = (event) => {
+  console.log($(event.target));
+}
 
 $('#sortBtn').on('click', sortPage)
 $('.item-container').on('change', '#itemCleanliness', updateCleanliness)
+  .on('click', '.item-name', toggleItemVisibility)
 $('.garage-btn').click(() => {
   if ($('.garage-door').hasClass('slideup')) {
     $('.garage-door').removeClass('slideup').addClass('slidedown')

@@ -124,6 +124,10 @@ body {
   border-radius: 5px;
 }
 
+.item-name {
+  cursor: pointer;
+}
+
 .count {
   font-weight: 400;
   font-style: italic;
