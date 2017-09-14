@@ -32,7 +32,7 @@ const items = [
   {
     name: 'The neighbor kid',
     staleness_reason: "He keeps wandering into my f**king garage. I don't get it.",
-    cleanliness: 'Sparkling'
+    cleanliness: 'Rancid'
   }
 ]
 
