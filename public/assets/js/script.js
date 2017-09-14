@@ -1,4 +1,5 @@
 let itemArray = []
+let currentSort
 
 const pageSetup = () => {
   apiGetItems()
@@ -15,8 +16,8 @@ const updateItemsArray = (data) => {
 }
 
 const addItem = () => {
-  apiAddItem($('.input-name').val(), $('.input-reason').val(), $('.input-cleanliness').val());
-  console.log(itemArray);
+  apiAddItem($('.input-name').val(), $('.input-reason').val(), $('.input-cleanliness').val())
+  console.log(itemArray)
 }
 
 const sortItems = (items, dir = 'asc') => {
@@ -27,12 +28,8 @@ const sortItems = (items, dir = 'asc') => {
   }
 }
 
-const sortPageItems = (event) => {
-  itemArray = sortItems(itemArray, $(event.target).attr('id'))
-  loadItemsInDom(itemArray)
-}
-
 const loadItemsInDom = (items) => {
+  console.log('loading items in dom', items)
   $('.item-container').empty()
   for (let i = 0; i < items.length; i++) {
     addItemInDom(items[i])
@@ -84,7 +81,7 @@ const apiGetItems = () => fetch('/api/v1/items')
   .then(response => response.json())
   .catch(error => console.log(error))
 
-const apiAddItem = (name, staleness_reason, cleanliness) => {
+const apiAddItem = (name, reason, cleanliness) => {
   fetch('/api/v1/items', {
     method: 'POST',
     headers: {
@@ -92,14 +89,15 @@ const apiAddItem = (name, staleness_reason, cleanliness) => {
     },
     body: JSON.stringify({
       name,
-      staleness_reason,
+      staleness_reason: reason,
       cleanliness
     })
   })
     .then(response => response.json())
     .then(response => itemArray.push(response.data))
-    .catch(error => console.log(error));
-};
+    .then(response => loadItemsInDom(sortItems(itemArray, currentSort)))
+    .catch(error => console.log(error))
+}
 
 const apiUpdateCondition = (id, cleanliness) => {
   fetch(`/api/v1/items/${id}`, {
@@ -119,9 +117,11 @@ const apiUpdateCondition = (id, cleanliness) => {
 const sortPage = () => {
   if ($('#sortBtn').text() === 'Sort Asc') {
     $('#sortBtn').text('Sort Desc')
+    currentSort = 'asc'
     loadItemsInDom(sortItems(itemArray, 'asc'))
   } else {
     $('#sortBtn').text('Sort Asc')
+    currentSort = 'desc'
     loadItemsInDom(sortItems(itemArray, 'desc'))
   }
 }
