@@ -78,6 +78,33 @@ describe('Testing GarageBin API Routes', () => {
     })
   })
 
+  describe('GET /api/v1/items/:id', () => {
+    it('should respond with a single item with id of 1', (done) => {
+      chai.request(server)
+          .get('/api/v1/items/1')
+          .end((err, res) => {
+            should.not.exist(err)
+            res.status.should.equal(200)
+            res.type.should.equal('application/json')
+            res.body.data[0].should.include.keys(
+              'id', 'name', 'staleness_reason', 'cleanliness', 'created_at', 'updated_at')
+            done()
+          })
+    })
+
+    it('should respond with a 404 error if item is not found.', (done) => {
+      chai.request(server)
+          .get('/api/v1/items/2000')
+          .end((err, res) => {
+            should.exist(err)
+            res.status.should.equal(404)
+            res.type.should.equal('application/json')
+            res.body.error.should.equal('Item with id (2000) was not found.')
+            done()
+          })
+    })
+  })
+
   describe('POST /api/v1/items', () => {
     it('should respond with the newly added item', (done) => {
       chai.request(server)
