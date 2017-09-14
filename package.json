@@ -1,5 +1,5 @@
 {
-  "name": "garbagebin",
+  "name": "garagebin",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -21,13 +21,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/the-oem/garbagebin.git"
+    "url": "git+https://github.com/the-oem/garagebin.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/the-oem/garbagebin/issues"
+    "url": "https://github.com/the-oem/garagebin/issues"
   },
-  "homepage": "https://github.com/the-oem/garbagebin#readme"
+  "homepage": "https://github.com/the-oem/garagebin#readme"
 }
