@@ -106,10 +106,12 @@ const sortPage = () => {
 
 $('#sortBtn').on('click', sortPage)
 $('.item-container').on('change', '#itemCleanliness', updateCleanliness)
-$('.garage-door').click(() => {
+$('.garage-btn').click(() => {
   if ($('.garage-door').hasClass('slideup')) {
     $('.garage-door').removeClass('slideup').addClass('slidedown')
+    $('.garage-btn').removeClass('garage-btn-close').addClass('garage-btn-open')
   } else {
     $('.garage-door').removeClass('slidedown').addClass('slideup')
+    $('.garage-btn').removeClass('garage-btn-open').addClass('garage-btn-close')
   }
 })
