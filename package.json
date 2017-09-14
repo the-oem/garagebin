@@ -15,7 +15,7 @@
     "mocha": "^3.5.0"
   },
   "scripts": {
-    "test": "standard -- fix && mocha test/integration/*",
+    "test": "standard --fix && mocha test/integration/*",
     "test:watch": "mocha --watch test/integration/*",
     "pretty": "standard --fix",
     "start": "nodemon src/server/server.js"
