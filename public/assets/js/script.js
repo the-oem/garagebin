@@ -124,7 +124,7 @@ const sortPage = () => {
   }
 }
 const toggleItemVisibility = (event) => {
-  if($(event.target).parent().siblings('div').hasClass('hidden')){
+  if ($(event.target).parent().siblings('div').hasClass('hidden')) {
     $(event.target).parent().siblings('div').removeClass('hidden')
   } else {
     $(event.target).parent().siblings('div').addClass('hidden')
