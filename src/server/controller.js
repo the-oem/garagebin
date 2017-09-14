@@ -22,7 +22,27 @@ const getItem = (req, res) => {
     .catch(error => res.status(500).json({ error }))
 }
 
+const addItem = (req, res) => {
+  const item = req.body
+  for (const requiredParameter of ['name', 'staleness_reason', 'cleanliness']) {
+    if (!item[requiredParameter]) {
+      return res.status(422).json({
+        data: {
+          error: `Missing required parameter of (${requiredParameter}).`
+        }
+      })
+    }
+  }
+
+  DB('items').insert(req.body, '*')
+    .then(item => res.status(201).json({
+      data: item[0]
+    }))
+    .catch(error => res.status(500).json({ error }))
+}
+
 module.exports = {
   getItems,
-  getItem
+  getItem,
+  addItem
 }
