@@ -94,8 +94,17 @@ const apiUpdateCondition = (id, cleanliness) => {
     .catch(error => console.log(error))
 }
 
-$('#asc').on('click', sortPageItems)
-$('#desc').on('click', sortPageItems)
+const sortPage = () => {
+  if ($('#sortBtn').text() === 'Sort Asc') {
+    $('#sortBtn').text('Sort Desc')
+    loadItemsInDom(sortItems(itemArray, 'asc'))
+  } else {
+    $('#sortBtn').text('Sort Asc')
+    loadItemsInDom(sortItems(itemArray, 'desc'))
+  }
+}
+
+$('#sortBtn').on('click', sortPage)
 $('.item-container').on('change', '#itemCleanliness', updateCleanliness)
 $('.garage-door').click(() => {
   if ($('.garage-door').hasClass('slideup')) {

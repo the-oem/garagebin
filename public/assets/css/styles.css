@@ -128,3 +128,11 @@ body {
   /*width: 100px;*/
   font-family: inherit;
 }
+
+.sort-btn {
+  width: 100px;
+  outline: none;
+  background-color: rgba(155, 193, 188, 1);
+  border: 1px solid rgba(244, 241, 187, 1);
+  border-radius: 50px;
+}
