@@ -10,6 +10,11 @@ const getItems = (req, res) => {
     .catch(error => res.status(500).json({ error }))
 }
 
+const getItem = (req, res) => {
+  res.status(200).json({ message: 'Returning one item.' })
+}
+
 module.exports = {
-  getItems
+  getItems,
+  getItem
 }
