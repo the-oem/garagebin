@@ -14,6 +14,7 @@ button,
 input,
 select {
   font-family: 'Raleway', sans-serif;
+  outline: none;
 }
 
 html {
@@ -57,8 +58,19 @@ body {
   height: 100vh;
 }
 
-.hidden {
-  /*display: none;*/
+.title {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.sub-title {
+  font-size: 14px;
+  font-style: italic;
 }
 
 .nav {
@@ -85,9 +97,31 @@ body {
   padding: 5px;
 }
 
-.sort-btn {
-  margin-left: 20px;
-  padding: 5px 10px;
+.add-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 180px;
+}
+
+input {
+  width: 240px;
+  height: 30px;
+  outline: none;
+  font-size: 18px;
+}
+
+.add-btn {
+  width: 120px;
+  height: 30px;
+  font-size: 18px;
+  margin: 5px;
+  border: 1px solid rgba(244, 241, 187, 1);
+  border-radius: 50px;
+  outline: none;
+  background-color: rgba(155, 193, 188, 1);
   cursor: pointer;
 }
 
@@ -103,7 +137,7 @@ body {
 .item {
   display: flex;
   flex-direction: column;
-  margin: 10px;
+  margin: 5px;
   padding: 10px;
   border: 1px solid rgba(92, 164, 169, 1);
   border-radius: 5px;
@@ -127,6 +161,9 @@ body {
   border-radius: 50px;
   outline: none;
   background-color: rgba(244, 241, 187, 1);
+  margin-left: 20px;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
 .garage-btn {

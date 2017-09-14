@@ -22,6 +22,7 @@ const getItem = (req, res) => {
 
 const addItem = (req, res) => {
   const item = req.body
+  console.log(item);
   for (const requiredParameter of ['name', 'staleness_reason', 'cleanliness']) {
     if (!item[requiredParameter]) {
       return res.status(422).json({error: `Missing required parameter of (${requiredParameter}).`

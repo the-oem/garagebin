@@ -14,6 +14,11 @@ const updateItemsArray = (data) => {
   itemArray = data
 }
 
+const addItem = () => {
+  apiAddItem($('.input-name').val(), $('.input-reason').val(), $('.input-cleanliness').val());
+  console.log(itemArray);
+}
+
 const sortItems = (items, dir = 'asc') => {
   if (dir === 'asc') {
     return items.sort((a, b) => ((b.name.toUpperCase() > a.name.toUpperCase()) ? 1 : ((a.name.toUpperCase() > b.name.toUpperCase()) ? -1 : 0)))
@@ -79,6 +84,23 @@ const apiGetItems = () => fetch('/api/v1/items')
   .then(response => response.json())
   .catch(error => console.log(error))
 
+const apiAddItem = (name, staleness_reason, cleanliness) => {
+  fetch('/api/v1/items', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name,
+      staleness_reason,
+      cleanliness
+    })
+  })
+    .then(response => response.json())
+    .then(response => itemArray.push(response.data))
+    .catch(error => console.log(error));
+};
+
 const apiUpdateCondition = (id, cleanliness) => {
   fetch(`/api/v1/items/${id}`, {
     method: 'PUT',
@@ -104,7 +126,8 @@ const sortPage = () => {
   }
 }
 
-$('#sortBtn').on('click', sortPage)
+$('.add-btn').on('click', addItem)
+$('.sort-btn').on('click', sortPage)
 $('.item-container').on('change', '#itemCleanliness', updateCleanliness)
 $('.garage-btn').click(() => {
   if ($('.garage-door').hasClass('slideup')) {
