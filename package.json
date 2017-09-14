@@ -21,7 +21,7 @@
     "start": "nodemon src/server/server.js"
   },
   "standard": {
-    "globals": [ "describe", "beforeEach", "it", "$" ]
+    "globals": [ "describe", "beforeEach", "it", "$", "fetch" ]
   },
   "repository": {
     "type": "git",
