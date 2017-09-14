@@ -17,7 +17,6 @@ const updateItemsArray = (data) => {
 const sortItems = (items, dir = 'asc') => {
   if (dir === 'asc') {
     return items.sort((a, b) => ((b.name.toUpperCase() > a.name.toUpperCase()) ? 1 : ((a.name.toUpperCase() > b.name.toUpperCase()) ? -1 : 0)))
-
   } else {
     return items.sort((a, b) => ((a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : ((b.name.toUpperCase() > a.name.toUpperCase()) ? -1 : 0)))
   }
@@ -33,6 +32,7 @@ const loadItemsInDom = (items) => {
   for (let i = 0; i < items.length; i++) {
     addItemInDom(items[i])
   }
+  updateItemCounts(items)
 }
 
 const addItemInDom = (item) => {
@@ -43,6 +43,13 @@ const addItemInDom = (item) => {
       <div class="item-cleanliness"><strong>Condition:</strong> ${item.cleanliness}</div>
     </div>
   `)
+}
+
+const updateItemCounts = items => {
+  $('#totalCount').text(items.length)
+  $('#sparklingCount').text(items.filter(item => item.cleanliness === 'Sparkling').length)
+  $('#dustyCount').text(items.filter(item => item.cleanliness === 'Dusty').length)
+  $('#rancidCount').text(items.filter(item => item.cleanliness === 'Rancid').length)
 }
 
 const apiGetItems = () => fetch('/api/v1/items')
