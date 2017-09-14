@@ -9,6 +9,18 @@ $secondary-text: #939598;
 $btn-text: #FFF;
 $divider: #D1D3D4;*/
 
+
+/* RGB */
+
+
+/*
+Nav: rgba(237, 106, 90, 1);
+Background: rgba(244, 241, 187, 1);
+Item Primary: rgba(155, 193, 188, 1);
+Item Accent: rgba(92, 164, 169, 1);
+Main Accent: rgba(230, 235, 224, 1);
+*/
+
 html {
   box-sizing: border-box;
   font-family: 'Raleway', sans-serif;
@@ -17,10 +29,36 @@ html {
 
 body {
   margin: 0;
+  background-color: rgba(230, 235, 224, 1);
 }
 
 *,
 *::before,
 *::after {
   box-sizing: inherit;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: rgba(237, 106, 90, 1);
+}
+
+.user-interactions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.count {
+  padding: 5px;
+}
+
+.sort {
+  padding: 5px 10px;
+  margin-left: 20px;
 }
