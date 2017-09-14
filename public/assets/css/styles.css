@@ -64,6 +64,10 @@ body {
   height: 100vh;
 }
 
+.hidden {
+  /*display: none;*/
+}
+
 .nav {
   display: flex;
   align-items: center;
